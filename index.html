@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="referrer" content="never">
+    <meta charset="UTF-8">
+    <title>豆瓣</title>
+    <link rel="shortcut icon" href="http://www.douban.com/favicon.ico">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="controller/reying-controller.js"></script>
+    <script src="controller/shangying-controller.js"></script>
+    <script src="controller/top250-controller.js"></script>
+    <script src="controller/moviedetail-controller.js"></script>
+    <script src="controller/search-controller.js"></script>
+    <script src="js/http.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+    <style>
+
+        @media screen and (max-width: 767px) {
+            .row-offcanvas {
+                position: relative;
+                -webkit-transition: all .25s ease-out;
+                -o-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+            }
+
+            .row-offcanvas-right {
+                right: 0;
+            }
+
+            .row-offcanvas-left {
+                left: 0;
+            }
+
+            .row-offcanvas-right .sidebar-offcanvas {
+                right: -50%; /* 6 columns */
+            }
+
+            .row-offcanvas-left .sidebar-offcanvas {
+                left: -50%; /* 6 columns */
+            }
+
+            .row-offcanvas-right.active {
+                right: 50%; /* 6 columns */
+            }
+
+            .row-offcanvas-left.active {
+                left: 50%; /* 6 columns */
+            }
+
+            .sidebar-offcanvas {
+                position: absolute;
+                top: 0;
+                width: 50%; /* 6 columns */
+                margin-left: 100px;
+            }
+        }
+
+
+    </style>
+</head>
+<script>
+    var myApp =angular.module('myApp',['ngRoute','reyingModule','shangyingModule','top250Module','moviecat.services.http','moviedetailModule','searchModule']);
+    myApp.config(function ($routeProvider) {
+        $routeProvider.when(
+            '/zhengzaireying/',
+        {
+            templateUrl:'./views/reying.html',
+            controller: 'reyingController'
+        }
+        ).when(
+            '/jijiangshangying',
+            {
+                templateUrl:'./views/shangying.html',
+                controller:'shangyingController'
+            }
+        ).when(
+            '/top250',
+            {
+                templateUrl:'./views/top250.html',
+                controller:'top250Controller'
+            }
+        ).when(
+            '/moviedetail',
+            {
+                templateUrl:'./views/moviedetail.html',
+                controller:'moviedetailController'
+            }
+        ).when(
+            '/search/:search',
+            {
+                templateUrl:'./views/search.html',
+                controller:'searchController'
+            }
+        )
+    });
+    myApp.controller('myController',function ($scope) {
+        $scope.search = '二娃';
+        $scope.now = -1;
+        $scope.navtitle = [
+            {
+                url:'#/zhengzaireying',
+                title:'正在热映'
+            },
+            {
+                url:'#/jijiangshangying',
+                title:'即将上映'
+            },
+            {
+                url:'#/top250',
+                title:'TOP250'
+            }];
+
+        $scope.setnow = function (value) {
+
+            $scope.now =value;
+        }
+    });
+
+</script>
+
+
+<body ng-app="myApp" ng-controller="myController" >
+<nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">豆瓣</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                <li ><a href="#">关于我们</a></li>
+
+            </ul>
+
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container-fluid row-offcanvas row-offcanvas-left" id="box" >
+    <p class="pull-left visible-xs" style="z-index: 100">
+        <button class="btn-xs btn btn-primary" data-toggle="offcanvas">菜单</button>
+    </p>
+    <div class="row" >
+
+        <div class="sidebar-offcanvas "  >
+
+            <div id="sidebar" style=" height: 100%; background: #e7e7e7;  padding-right: 0px; padding-left: 0px;" class=" col-md-2 col-sm-2 col-xs-5 navbar-fixed-top  hidden-xs  ">
+                <div  class="list-group" id="titlebox">
+                    <a ng-repeat=" item in navtitle" href="{{item.url}}" class="list-group-item " ng-class="now==$index?'active':''" ng-click="setnow($index)" >
+                       {{item.title}}
+                    </a>
+
+                </div>
+                <div class="input-group" ng-controller="searchController">
+                    <input type="text" class="form-control" placeholder="请输入搜索内容" aria-describedby="basic-addon2" ng-model="search">
+                    <a class="input-group-addon btn btn-primary" href="#/search/{{search}}"><span  id="basic-addon2" >搜索</span></a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <ng-view class="col-md-10 col-xs-12 col-sm-10 col-sm-offset-2 col-md-offset-2 col-xs-offset-0 " style=" padding: 0px 0px">
+
+        </ng-view>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+</body>
+</html>
+<script>
+ $(function () {
+     $('#basic-addon2').click();
+
+     document.onkeydown=function(event){
+                  var e = event || window.event || arguments.callee.caller.arguments[0];
+                    if(e && e.keyCode==27){ // 按 Esc
+                             //要做的事情
+                           }
+                   if(e && e.keyCode==113){ // 按 F2
+                       //要做的事情
+                   }
+                   if(e && e.keyCode==13){ // enter 键
+                             //要做的事情
+                       $('#basic-addon2').click();
+                         }
+                 };
+
+
+
+     $('.navbar').resize(function () {
+            setsize();
+        });
+
+        function setsize() {
+            var navheight = $('.navbar').height();
+
+            $('#box').css('margin-top',navheight);
+            $('#sidebar').css('margin-top',navheight);
+
+        }
+
+        setsize();
+
+
+
+     $(document).ready(function () {
+         $('[data-toggle="offcanvas"]').click(function () {
+             $('.row-offcanvas').toggleClass('active ');
+             $('#sidebar').fadeToggle(500,"linear").toggleClass('hidden-xs');
+         });
+
+     });
+
+     $('#titlebox a:last-child').click();
+
+
+
+ });
+</script>
