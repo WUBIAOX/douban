@@ -7,7 +7,7 @@ top250Module.controller('top250Controller',function ($scope,$http,HttpService) {
 
     $scope.getData  = function ( start,count) {
         HttpService.jsonp(
-            'http://api.douban.com/v2/movie/top250', {
+            'https://api.douban.com/v2/movie/top250', {
                 'start':start,
                 'count':count
             },
