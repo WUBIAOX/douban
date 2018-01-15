@@ -96,6 +96,12 @@
                 templateUrl:'./views/search.html',
                 controller:'searchController'
             }
+        ).when(
+            '/ ',
+            {
+                templateUrl:'./views/top250.html',
+                controller:'top250Controller'
+            }
         )
     });
     myApp.controller('myController',function ($scope) {
