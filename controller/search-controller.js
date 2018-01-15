@@ -13,7 +13,7 @@ searchModule.controller('searchController',function ($scope, $http,$routeParams,
 
     $scope.getData  = function (search, start,count) {
         HttpService.jsonp(
-            'http://api.douban.com/v2/movie/search', {
+            'https://api.douban.com/v2/movie/search', {
                 'q':search,
                 'start':start,
                 'count':count
