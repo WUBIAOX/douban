@@ -7,7 +7,7 @@ shangyingModule.controller('shangyingController',function ($scope,$http,HttpServ
 
     $scope.getData  = function ( start,count) {
         HttpService.jsonp(
-            'http://api.douban.com/v2/movie/coming_soon', {
+            'https://api.douban.com/v2/movie/coming_soon', {
                 'start':start,
                 'count':count
             },
