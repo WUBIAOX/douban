@@ -7,7 +7,7 @@ reyingModule.controller('reyingController',function ($scope,$http,HttpService) {
 
     $scope.getData  = function ( start,count) {
         HttpService.jsonp(
-            'http://api.douban.com/v2/movie/in_theaters', {
+            'https://api.douban.com/v2/movie/in_theaters', {
                 'start':start,
                 'count':count
             },
