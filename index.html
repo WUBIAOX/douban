@@ -3,10 +3,10 @@
 <head>
     <meta name="referrer" content="never">
     <meta charset="UTF-8">
+    <meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1; user-scalable=no;">
     <title>豆瓣</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="shortcut icon" href="http://www.douban.com/favicon.ico">
+
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/angular.min.js"></script>
@@ -24,8 +24,8 @@
         @media screen and (max-width: 767px) {
             .row-offcanvas {
                 position: relative;
-                -webkit-transition: all .25s ease-out;
-                -o-transition: all .25s ease-out;
+                 -webkit-transition: all .25s ease-out;
+                 -o-transition: all .25s ease-out;
                 transition: all .25s ease-out;
             }
 
@@ -35,6 +35,8 @@
 
             .row-offcanvas-left {
                 left: 0;
+
+
             }
 
             .row-offcanvas-right .sidebar-offcanvas {
@@ -53,11 +55,14 @@
                 left: 50%; /* 6 columns */
             }
 
+
+
             .sidebar-offcanvas {
                 position: absolute;
                 top: 0;
-                width: 50%; /* 6 columns */
-                margin-left: 100px;
+                width: 100px;
+
+
             }
         }
 
@@ -96,12 +101,6 @@
             {
                 templateUrl:'./views/search.html',
                 controller:'searchController'
-            }
-        ).when(
-            '/ ',
-            {
-                templateUrl:'./views/top250.html',
-                controller:'top250Controller'
             }
         )
     });
@@ -142,14 +141,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/">豆瓣</a>
+            <a class="navbar-brand" href="#">豆瓣</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#/">首页 <span class="sr-only">(current)</span></a></li>
-                
+                <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                <li ><a href="#">关于我们</a></li>
 
             </ul>
 
@@ -160,10 +159,10 @@
 
 
 <div class="container-fluid row-offcanvas row-offcanvas-left" id="box" >
-    <p class="pull-left visible-xs" style="z-index: 100">
-        <button class="btn-xs btn btn-primary " data-toggle="offcanvas">菜单</button>
+    <p class="pull-left visible-xs" style="z-index: 100; ">
+        <button class="btn-xs btn btn-primary "   id="btn-offcanvas" data-toggle="offcanvas">菜单</button>
     </p>
-    <div class="row" >
+    <div class="row" style="z-index: 0;" >
 
         <div class="sidebar-offcanvas "  >
 
